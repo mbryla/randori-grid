@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 
     <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-route/angular-route.js"></script>
     <script src="app/app.js"></script>
+    <script src="app/row/row-directive.js"></script>
+    <script src="app/grid-service.js"></script>
+    <script src="app/movement-service.js"></script>
+    <script src="app/bootloader.js"></script>
+    <script src="app/row/row-controller.js"></script>
+
 </head>
 <body>
-    <h1>Hello, world!</h1>
+<h1>Hello, world!</h1>
+<div class="grid">
+    <row row-id="0"></row>
+    <row row-id="1"></row>
+    <row row-id="2"></row>
+</div>
 </body>
 </html>
