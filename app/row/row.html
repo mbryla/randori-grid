@@ -1,5 +1,7 @@
 <div class="row">
-    <div class="tile" ng-repeat="tile in rowController.data" style="background-color: {{tile.color}}"
+    <div ng-repeat="tile in rowController.data" ondragstart="return false;" class="tile"
+         ng-class="{block: tile.block, first: tile.first, striped: tile.striped}"
+         ng-style="{backgroundColor: tile.color}"
          ng-mouseenter="rowController.tileEntered($index)"
          ng-mousedown="rowController.tilePressed($index)">
     </div>

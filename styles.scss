@@ -1,10 +1,14 @@
+$sqrt2: 1.414213562373095;
+$tileSize: 50px;
+
 .row {
   margin: 10px;
 }
 
 .tile {
-  width: 50px;
-  height: 50px;
+  width: $tileSize;
+  height: $tileSize;
+  box-sizing: border-box;
   display: inline-block;
 
   border: 1px solid black;
@@ -13,4 +17,20 @@
   &:last-child {
     border-right: 1px solid black;
   }
+
+  &.block {
+    border-left: 0;
+    &.first {
+      border-left: 1px solid black;
+    }
+  }
+}
+
+.striped {
+  background: repeating-linear-gradient(45deg,
+          rgba(255, 255, 255, 0.8),
+          rgba(255, 255, 255, 0.8) ($tileSize / 4 * $sqrt2),
+          rgba(255, 255, 255, 0) ($tileSize / 4 * $sqrt2),
+          rgba(255, 255, 255, 0) ($tileSize / 2 * $sqrt2)
+  );
 }
