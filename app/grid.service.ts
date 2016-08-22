@@ -8,6 +8,7 @@
     function gridService() {
 
         interface Block {
+            id:number,
             row:number,
             start:number,
             duration:number,
@@ -15,7 +16,8 @@
         }
 
         interface Tile {
-            color:string
+            color:string,
+            block:Block
         }
 
         var data:Tile[][];
@@ -35,7 +37,8 @@
 
                 for (var j:number = 0; j < width; j++) {
                     data[i][j] = {
-                        color: '#fff'
+                        color: '#fff',
+                        block: undefined
                     };
                 }
             }
@@ -44,12 +47,14 @@
         function setBlock(row:number, block:Block) {
             for (var i:number = block.start; i < block.start + block.duration; i++) {
                 data[row][i].color = block.color;
+                data[row][i].block = block;
             }
         }
 
         function clearBlock(row:number, block:Block) {
             for (var i:number = block.start; i < block.start + block.duration; i++) {
                 data[row][i].color = '#fff';
+                data[row][i].block = undefined;
             }
         }
     }

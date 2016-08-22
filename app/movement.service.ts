@@ -3,9 +3,9 @@
 
     angular.module('app').service('movementService', movementService);
 
-    movementService.$inject = [];
+    movementService.$inject = ['gridService'];
 
-    function movementService() {
+    function movementService(gridService) {
 
         return {
             tileEntered: tileEntered,
@@ -18,7 +18,7 @@
         }
 
         function tilePressed(row, tile) {
-            console.log("Tile pressed at (" + row + "," + tile + ")");
+            console.log("Tile pressed at (" + row + "," + tile + ")", gridService.data[row][tile].block);
         }
 
         function mouseReleased() {
