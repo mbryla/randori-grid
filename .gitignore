@@ -8,3 +8,7 @@ node_modules
 # TypeScript
 **/*.js
 **/*.js.map
+
+# Sass
+**/*.css
+**/*.css.map

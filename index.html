@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" ng-controller="MouseUpController as mouseUpController" ng-mouseup="mouseUpController.mouseUp();">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Grid</title>
 
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-route/angular-route.js"></script>
-    <script src="app/app.js"></script>
-    <script src="app/row/row-directive.js"></script>
-    <script src="app/grid-service.js"></script>
-    <script src="app/movement-service.js"></script>
-    <script src="app/bootloader.js"></script>
-    <script src="app/row/row-controller.js"></script>
 
+    <script src="app/app.js"></script>
+    <script src="app/bootloader.js"></script>
+
+    <script src="app/grid.service.js"></script>
+    <script src="app/movement.service.js"></script>
+    <script src="app/mouseup.controller.js"></script>
+    <script src="app/row/row.directive.js"></script>
+    <script src="app/row/row.controller.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
-<h1>Hello, world!</h1>
 <div class="grid">
     <row row-id="0"></row>
     <row row-id="1"></row>

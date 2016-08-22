@@ -1,4 +1,6 @@
 <div class="row">
-    <div class="tile" ng-repeat="tile in rowController.data"
-         style="background-color: {{tile.color}}">x</div>
+    <div class="tile" ng-repeat="tile in rowController.data" style="background-color: {{tile.color}}"
+         ng-mouseenter="rowController.tileEntered($index)"
+         ng-mousedown="rowController.tilePressed($index)">
+    </div>
 </div>
