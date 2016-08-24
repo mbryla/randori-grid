@@ -3,6 +3,6 @@
          ng-class="{block: tile.block, first: tile.first, striped: tile.striped}"
          ng-style="{backgroundColor: tile.color}"
          ng-mouseenter="rowController.tileEntered($index)"
-         ng-mousedown="rowController.tilePressed($index)">
+         ng-mousedown="rowController.tilePressed($index, $event)">
     </div>
 </div>

@@ -28,7 +28,9 @@
         return {
             data: data,
             setBlock: setBlock,
-            clearBlock: clearBlock
+            clearBlock: clearBlock,
+            setBlockDragged: setBlockDragged,
+            setBlockResized: setBlockResized
         };
 
         function initialiseTiles(height:number, width:number) {
@@ -48,7 +50,7 @@
             }
         }
 
-        function setBlock(row:number, block:Block, moving:boolean) {
+        function setBlockResized(row:number, block:Block) {
             for (var i:number = block.start; i < block.start + block.length; i++) {
                 if (i === block.start) {
                     data[row][i].first = true;
@@ -56,7 +58,34 @@
 
                 data[row][i].color = block.color;
                 data[row][i].block = block;
-                data[row][i].striped = moving;
+                data[row][i].striped = true;
+            }
+
+            data[row][block.start].striped = false;
+            data[row][block.start + block.length - 1].striped = false;
+        }
+
+        function setBlockDragged(row:number, block:Block) {
+            for (var i:number = block.start; i < block.start + block.length; i++) {
+                if (i === block.start) {
+                    data[row][i].first = true;
+                }
+
+                data[row][i].color = block.color;
+                data[row][i].block = block;
+                data[row][i].striped = true;
+            }
+        }
+
+        function setBlock(row:number, block:Block) {
+            for (var i:number = block.start; i < block.start + block.length; i++) {
+                if (i === block.start) {
+                    data[row][i].first = true;
+                }
+
+                data[row][i].color = block.color;
+                data[row][i].block = block;
+                data[row][i].striped = false;
             }
         }
 

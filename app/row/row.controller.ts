@@ -13,8 +13,13 @@
             movementService.tileEntered(vm.rowId, tile);
         };
 
-        vm.tilePressed = function (tile) {
-            movementService.tilePressed(vm.rowId, tile);
+        vm.tilePressed = function (tile, event) {
+            if(event.ctrlKey) {
+                movementService.tilePressedWithControl(vm.rowId, tile);
+            } else {
+                movementService.tilePressed(vm.rowId, tile);
+            }
+
         };
     }
 })();
