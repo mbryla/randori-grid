@@ -3,22 +3,7 @@
     angular.module('app').service('gridService', gridService);
 
     gridService.$inject = [];
-    function gridService() {
-
-        interface Block {
-            id:number,
-            row:number,
-            start:number,
-            length:number,
-            color:string
-        }
-
-        interface Tile {
-            block:Block,
-            first:boolean,
-            color:string,
-            striped:boolean
-        }
+    function gridService():Object {
 
         var data:Tile[][];
         initialiseTiles(3, 10);
@@ -31,13 +16,13 @@
             setBlockResized: setBlockResized
         };
 
-        function initialiseTiles(height:number, width:number) {
+        function initialiseTiles(height:number, width:number):void {
             data = [];
 
-            for (var i:number = 0; i < height; i++) {
+            for (let i:number = 0; i < height; i++) {
                 data[i] = [];
 
-                for (var j:number = 0; j < width; j++) {
+                for (let j:number = 0; j < width; j++) {
                     data[i][j] = {
                         block: undefined,
                         first: false,
@@ -48,8 +33,8 @@
             }
         }
 
-        function setBlockResized(row:number, block:Block) {
-            for (var i:number = block.start; i < block.start + block.length; i++) {
+        function setBlockResized(row:number, block:Block):void {
+            for (let i:number = block.start; i < block.start + block.length; i++) {
                 if (i === block.start) {
                     data[row][i].first = true;
                 }
@@ -63,8 +48,8 @@
             data[row][block.start + block.length - 1].striped = false;
         }
 
-        function setBlockDragged(row:number, block:Block) {
-            for (var i:number = block.start; i < block.start + block.length; i++) {
+        function setBlockDragged(row:number, block:Block):void {
+            for (let i:number = block.start; i < block.start + block.length; i++) {
                 if (i === block.start) {
                     data[row][i].first = true;
                 }
@@ -75,8 +60,8 @@
             }
         }
 
-        function setBlock(row:number, block:Block) {
-            for (var i:number = block.start; i < block.start + block.length; i++) {
+        function setBlock(row:number, block:Block):void {
+            for (let i:number = block.start; i < block.start + block.length; i++) {
                 if (i === block.start) {
                     data[row][i].first = true;
                 }
@@ -87,8 +72,8 @@
             }
         }
 
-        function clearBlock(row:number, block:Block) {
-            for (var i:number = block.start; i < block.start + block.length; i++) {
+        function clearBlock(row:number, block:Block):void {
+            for (let i:number = block.start; i < block.start + block.length; i++) {
                 data[row][i].color = '#fff';
                 data[row][i].block = undefined;
                 data[row][i].striped = false;

@@ -9,6 +9,7 @@
     "typings"
   ],
   "files": [
-    "./typings/**/*.ts"
+    "./typings/**/*.ts",
+    "common.ts"
   ]
 }

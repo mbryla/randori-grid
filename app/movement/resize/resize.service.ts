@@ -3,12 +3,13 @@
     angular.module('app').service('resizeService', resizeService);
 
     resizeService.$inject = ['gridService'];
-    function resizeService(gridService) {
-        var resizedBlock;
-        var resizeStartTile;
-        var resizeRow;
-        var resizingLeft;
-        var resizingRight;
+    function resizeService(gridService:Object):Object {
+
+        var resizedBlock:Block;
+        var resizeStartTile:number;
+        var resizeRow:number;
+        var resizingLeft:boolean;
+        var resizingRight:boolean;
 
         return {
             tileEntered: tileEntered,
@@ -16,7 +17,7 @@
             mouseReleased: mouseReleased
         };
 
-        function tileEntered(tile):void {
+        function tileEntered(tile:number):void {
             if ((resizedBlock !== undefined) && (resizingLeft || resizingRight)) {
                 if (resizingLeft && resizingRight) {
                     // choose which side to resize
@@ -27,8 +28,8 @@
             }
         }
 
-        function tilePressedWithControl(row, tile):void {
-            let block = gridService.data[row][tile].block;
+        function tilePressedWithControl(row:number, tile:number):void {
+            let block:Block = gridService.data[row][tile].block;
             if (block !== undefined) {
                 resizingLeft = (tile == block.start);
                 resizingRight = (tile == block.start + block.length - 1);
@@ -56,6 +57,7 @@
             if (resizedBlock !== undefined) {
                 gridService.setBlock(resizeRow, resizedBlock);
                 if (creatingNewBlock()) {
+                    // beware that this may happen if someone quickly modifies a newly created block
                     console.log('block created');
                 } else if (blockResized()) {
                     console.log('block resized');
@@ -64,8 +66,8 @@
             }
         }
 
-        function resizeLeft(tile) {
-            let offset = tile - resizedBlock.start;
+        function resizeLeft(tile:number):void {
+            let offset:number = tile - resizedBlock.start;
             if ((offset > 0) && (offset < resizedBlock.length)) {
                 gridService.clearBlock(resizeRow, resizedBlock);
                 resizedBlock.start = tile;
@@ -79,8 +81,8 @@
             }
         }
 
-        function resizeRight(tile) {
-            let offset = tile - (resizedBlock.start + resizedBlock.length - 1);
+        function resizeRight(tile:number):void {
+            let offset:number = tile - (resizedBlock.start + resizedBlock.length - 1);
             if ((offset > 0) && canBeExpandedBySection(resizedBlock.start + resizedBlock.length, tile)) {
                 gridService.clearBlock(resizeRow, resizedBlock);
                 resizedBlock.length = resizedBlock.length + offset;
@@ -92,7 +94,7 @@
             }
         }
 
-        function canBeExpandedBySection(from:number, to:number) {
+        function canBeExpandedBySection(from:number, to:number):boolean {
             for (let i:number = from; i <= to; i++) {
                 if (gridService.data[resizeRow][i].block !== undefined) {
                     return false;
@@ -109,7 +111,7 @@
             return (resizingLeft && (resizedBlock.start != resizeStartTile)) || (resizingRight && (resizedBlock.start + resizedBlock.length + 1));
         }
 
-        function markResizeStart(row, tile, block):void {
+        function markResizeStart(row:number, tile:number, block:Block):void {
             resizedBlock = block;
             resizeStartTile = tile;
             resizeRow = row;

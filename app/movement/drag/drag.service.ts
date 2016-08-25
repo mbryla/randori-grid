@@ -3,13 +3,13 @@
     angular.module('app').service('dragService', dragService);
 
     dragService.$inject = ['gridService'];
-    function dragService(gridService) {
+    function dragService(gridService:Object):Object {
 
-        var draggedBlock;
-        var dragStartTile;
-        var dragStartRow;
-        var dragOffset;
-        var dragRow;
+        var draggedBlock:Block;
+        var dragStartTile:number;
+        var dragStartRow:number;
+        var dragOffset:number;
+        var dragRow:number;
 
         return {
             tileEntered: tileEntered,
@@ -17,7 +17,7 @@
             mouseReleased: mouseReleased
         };
 
-        function tileEntered(row, tile):void {
+        function tileEntered(row:number, tile:number):void {
             if ((draggedBlock !== undefined) && canBePlaced(row, tile + dragOffset)) {
                 gridService.clearBlock(dragRow, draggedBlock);
                 draggedBlock.start = tile + dragOffset;
@@ -26,8 +26,8 @@
             }
         }
 
-        function tilePressed(row, tile):void {
-            let block = gridService.data[row][tile].block;
+        function tilePressed(row:number, tile:number):void {
+            let block:Block = gridService.data[row][tile].block;
             if (block !== undefined) {
                 gridService.setBlockDragged(row, block);
                 markDragStart(row, tile, block);
@@ -44,16 +44,16 @@
             }
         }
 
-        function canBePlaced(row, tile):boolean {
+        function canBePlaced(row:number, tile:number):boolean {
             return withinRow(row, tile) && !collides(row, tile);
         }
 
-        function withinRow(row, tile):boolean {
+        function withinRow(row:number, tile:number):boolean {
             return (tile >= 0) && (tile + draggedBlock.length <= gridService.data[row].length);
         }
 
-        function collides(row, tile):boolean {
-            for (var i:number = tile; i < tile + draggedBlock.length; i++) {
+        function collides(row:number, tile:number):boolean {
+            for (let i:number = tile; i < tile + draggedBlock.length; i++) {
                 if (gridService.data[row][i].block && (gridService.data[row][i].block.id !== draggedBlock.id)) {
                     return true;
                 }
@@ -65,7 +65,7 @@
             return (dragRow !== dragStartRow) || (draggedBlock.start !== dragStartTile);
         }
 
-        function markDragStart(row, tile, block):void {
+        function markDragStart(row:number, tile:number, block:Block):void {
             draggedBlock = block;
             dragStartTile = block.start;
             dragStartRow = row;

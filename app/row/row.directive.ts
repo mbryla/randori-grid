@@ -2,7 +2,7 @@
     'use strict';
     angular.module('app').directive('row', row);
 
-    function row() {
+    function row():Object {
         return {
             restrict: 'E',
             replace: true,

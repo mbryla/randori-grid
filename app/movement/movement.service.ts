@@ -3,7 +3,7 @@
     angular.module('app').service('movementService', movementService);
 
     movementService.$inject = ['dragService', 'resizeService'];
-    function movementService(dragService, resizeService) {
+    function movementService(dragService:Object, resizeService:Object):Object {
 
         return {
             tileEntered: tileEntered,
@@ -12,16 +12,16 @@
             mouseReleased: mouseReleased
         };
 
-        function tileEntered(row, tile):void {
+        function tileEntered(row:number, tile:number):void {
             dragService.tileEntered(row, tile);
             resizeService.tileEntered(tile);
         }
 
-        function tilePressed(row, tile):void {
+        function tilePressed(row:number, tile:number):void {
             dragService.tilePressed(row, tile);
         }
 
-        function tilePressedWithControl(row, tile):void {
+        function tilePressedWithControl(row:number, tile:number):void {
             resizeService.tilePressedWithControl(row, tile);
         }
 

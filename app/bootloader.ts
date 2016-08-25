@@ -2,16 +2,16 @@
     angular.module('app').service('bootloader', bootloader);
 
     bootloader.$inject = ['gridService'];
-    function bootloader(gridService) {
-        var run = function () {
-            var block1 = {
+    function bootloader(gridService:Object):Object {
+        var run = function ():void {
+            let block1:Block = {
                 color: 'red',
                 start: 0,
                 length: 2,
                 id: 1
             };
 
-            var block2 = {
+            let block2:Block = {
                 color: 'lime',
                 start: 1,
                 length: 4,
