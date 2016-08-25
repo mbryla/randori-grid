@@ -20,6 +20,8 @@ $tileSize: 50px;
 
   &.block {
     border-left: 0;
+    cursor: move;
+
     &.first {
       border-left: 1px solid black;
     }

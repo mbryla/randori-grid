@@ -1,9 +1,7 @@
 (function () {
-    angular.module('app')
-        .service('bootloader', bootloader);
+    angular.module('app').service('bootloader', bootloader);
 
     bootloader.$inject = ['gridService'];
-
     function bootloader(gridService) {
         var run = function () {
             var block1 = {

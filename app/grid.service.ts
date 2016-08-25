@@ -1,10 +1,8 @@
 (function () {
     'use strict';
-
     angular.module('app').service('gridService', gridService);
 
     gridService.$inject = [];
-
     function gridService() {
 
         interface Block {

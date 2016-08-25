@@ -1,10 +1,8 @@
 (function () {
-
-    angular.module('app')
-        .controller('RowController', rowController);
-
+    'use strict';
+    angular.module('app') .controller('RowController', rowController);
+    
     rowController.$inject = ['gridService', 'movementService'];
-
     function rowController(gridService, movementService) {
         var vm = this;
         vm.data = gridService.data[vm.rowId];
