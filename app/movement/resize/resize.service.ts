@@ -4,7 +4,6 @@
 
     resizeService.$inject = ['gridService'];
     function resizeService(gridService) {
-        
         var resizedBlock;
         var resizeStartTile;
         var resizeRow;
@@ -38,13 +37,27 @@
                     gridService.setBlockResized(row, block);
                     markResizeStart(row, tile, block);
                 }
+            } else {
+                resizingLeft = true;
+                resizingRight = true;
+                resizedBlock = {
+                    color: 'bafe24',
+                    start: tile,
+                    length: 1,
+                    id: undefined
+                };
+
+                gridService.setBlockResized(row, resizedBlock);
+                markResizeStart(row, tile, resizedBlock);
             }
         }
 
         function mouseReleased():void {
             if (resizedBlock !== undefined) {
                 gridService.setBlock(resizeRow, resizedBlock);
-                if (blockResized()) {
+                if (creatingNewBlock()) {
+                    console.log('block created');
+                } else if (blockResized()) {
                     console.log('block resized');
                 }
                 clearResize();
@@ -86,6 +99,10 @@
                 }
             }
             return true;
+        }
+
+        function creatingNewBlock():boolean {
+            return resizedBlock.id === undefined;
         }
 
         function blockResized():boolean {
