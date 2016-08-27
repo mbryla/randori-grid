@@ -2,8 +2,8 @@
     'use strict';
     angular.module('app').service('resizeService', resizeService);
 
-    resizeService.$inject = ['gridService'];
-    function resizeService(gridService:Object):Object {
+    resizeService.$inject = ['gridService', 'pubSubService'];
+    function resizeService(gridService, pubSubService):Object {
 
         var resizedBlock:Block;
         var resizeStartTile:number;
@@ -24,7 +24,12 @@
                     resizingLeft = tile < resizedBlock.start;
                     resizingRight = tile > resizedBlock.start;
                 }
-                resizingLeft ? resizeLeft(tile) : resizeRight(tile);
+
+                if (resizingLeft) {
+                    resizeLeft(tile);
+                } else if (resizingRight) {
+                    resizeRight(tile);
+                }
             }
         }
 
@@ -43,6 +48,7 @@
                 resizingRight = true;
                 resizedBlock = {
                     color: 'bafe24',
+                    row: row,
                     start: tile,
                     length: 1,
                     id: undefined
@@ -58,9 +64,9 @@
                 gridService.setBlock(resizeRow, resizedBlock);
                 if (creatingNewBlock()) {
                     // beware that this may happen if someone quickly modifies a newly created block
-                    console.log('block created');
+                    pubSubService.publish('block-created', resizedBlock);
                 } else if (blockResized()) {
-                    console.log('block resized');
+                    pubSubService.publish('block-modified', resizedBlock);
                 }
                 clearResize();
             }
@@ -108,7 +114,8 @@
         }
 
         function blockResized():boolean {
-            return (resizingLeft && (resizedBlock.start != resizeStartTile)) || (resizingRight && (resizedBlock.start + resizedBlock.length + 1));
+            return (resizingLeft && (resizedBlock.start != resizeStartTile)) ||
+                (resizingRight && ((resizedBlock.start + resizedBlock.length + 1) != resizeStartTile));
         }
 
         function markResizeStart(row:number, tile:number, block:Block):void {

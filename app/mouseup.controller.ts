@@ -3,8 +3,8 @@
     angular.module('app').controller('MouseUpController', mouseUpController);
 
     mouseUpController.$inject = ['movementService'];
-    function mouseUpController(movementService:Object):void {
-        var vm:Object = this;
+    function mouseUpController(movementService):void {
+        var vm = this;
 
         vm.mouseUp = function ():void {
             movementService.mouseReleased();

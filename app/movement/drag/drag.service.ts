@@ -2,8 +2,8 @@
     'use strict';
     angular.module('app').service('dragService', dragService);
 
-    dragService.$inject = ['gridService'];
-    function dragService(gridService:Object):Object {
+    dragService.$inject = ['gridService', 'pubSubService'];
+    function dragService(gridService, pubSubService):Object {
 
         var draggedBlock:Block;
         var dragStartTile:number;
@@ -38,7 +38,7 @@
             if (draggedBlock !== undefined) {
                 gridService.setBlock(dragRow, draggedBlock);
                 if (blockMoved()) {
-                    console.log('block dragged');
+                    pubSubService.publish('block-modified', draggedBlock);
                 }
                 clearDrag();
             }

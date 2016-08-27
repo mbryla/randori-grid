@@ -5,11 +5,6 @@
     "sourceMap": true
   },
   "exclude": [
-    "node_modules",
-    "typings"
-  ],
-  "files": [
-    "./typings/**/*.ts",
-    "common.ts"
+    "node_modules"
   ]
 }

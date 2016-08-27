@@ -4,5 +4,16 @@
   "dependencies": {
     "angular": "1.5.8",
     "angular-route": "1.5.8"
+  },
+  "devDependencies": {
+    "karma": "1.2.0",
+    "karma-coverage": "1.1.1",
+    "karma-jasmine": "1.0.2",
+    "karma-chrome-launcher": "2.0.0",
+    "angular-mocks": "1.5.8",
+    "jshint": "2.9.3"
+  },
+  "scripts": {
+    "jshint": "jshint app"
   }
 }

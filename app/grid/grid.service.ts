@@ -5,20 +5,18 @@
     gridService.$inject = [];
     function gridService():Object {
 
-        var data:Tile[][];
-        initialiseTiles(3, 10);
+        var data:Tile[][] = [];
 
         return {
             data: data,
+            initialize: initialize,
             setBlock: setBlock,
             clearBlock: clearBlock,
             setBlockDragged: setBlockDragged,
             setBlockResized: setBlockResized
         };
 
-        function initialiseTiles(height:number, width:number):void {
-            data = [];
-
+        function initialize(height:number, width:number):void {
             for (let i:number = 0; i < height; i++) {
                 data[i] = [];
 
