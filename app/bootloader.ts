@@ -21,15 +21,15 @@
             };
 
             gridService.initialize(3, 24);
-            pubSubService.subscribe('block-modified', function(block) {
+            pubSubService.subscribe('block-modified', function (block) {
                 console.log('block modified', block);
             });
-            pubSubService.subscribe('block-created', function(block) {
+            pubSubService.subscribe('block-created', function (block) {
                 console.log('block created', block);
             });
 
-            setTimeout(function() {
-                $rootScope.$apply(function() {
+            setTimeout(function () {
+                $rootScope.$apply(function () {
                     console.log('added blocks');
 
                     gridService.setBlock(block1);

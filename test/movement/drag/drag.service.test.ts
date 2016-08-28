@@ -31,20 +31,20 @@ describe('dragService', function () {
             gridService.setBlock(block(0, 2, 3));
         });
 
-        describe('to row 1', function() {
-            describe('without grab offset', function() {
+        describe('to row 1', function () {
+            describe('without grab offset', function () {
                 beforeEach(function () {
                     dragService.tilePressed(0, 2);
                 });
 
-                it('should not recognize same place as drag', function() {
+                it('should not recognize same place as drag', function () {
                     dragService.tileEntered(1, 2);
                     dragService.tileEntered(0, 2);
                     dragService.mouseReleased();
                     expectNotDragged();
                 });
 
-                it('should allow to drag to the same tile', function() {
+                it('should allow to drag to the same tile', function () {
                     dragService.tileEntered(1, 2);
                     dragService.mouseReleased();
                     expectDraggedTo(1, 2);
@@ -74,14 +74,14 @@ describe('dragService', function () {
                     expectDraggedTo(1, 4);
                 });
 
-                it('should not allow to drag right outside grid', function() {
+                it('should not allow to drag right outside grid', function () {
                     dragService.tileEntered(0, 8);
                     dragService.mouseReleased();
                     expectNotDragged();
                 });
 
                 describe('should avoid collision', function () {
-                    it('with block on the same tiles', function() {
+                    it('with block on the same tiles', function () {
                         gridService.setBlock(block(1, 0, 10));
                         dragService.tileEntered(1, 2);
                         dragService.mouseReleased();
@@ -111,19 +111,19 @@ describe('dragService', function () {
                 });
             });
 
-            describe('with grad offset of 1', function() {
+            describe('with grad offset of 1', function () {
                 beforeEach(function () {
                     dragService.tilePressed(0, 3);
                 });
 
-                it('should not recognize same place as drag', function() {
+                it('should not recognize same place as drag', function () {
                     dragService.tileEntered(1, 3);
                     dragService.tileEntered(0, 3);
                     dragService.mouseReleased();
                     expectNotDragged();
                 });
 
-                it('should allow to drag to the same tile', function() {
+                it('should allow to drag to the same tile', function () {
                     dragService.tileEntered(1, 3);
                     dragService.mouseReleased();
                     expectDraggedTo(1, 2);
@@ -165,8 +165,8 @@ describe('dragService', function () {
                     expectNotDragged();
                 });
 
-                describe('should avoid collision', function() {
-                    it('with block on the same tiles', function() {
+                describe('should avoid collision', function () {
+                    it('with block on the same tiles', function () {
                         gridService.setBlock(block(1, 0, 10));
                         dragService.tileEntered(1, 3);
                         dragService.mouseReleased();
@@ -203,7 +203,7 @@ describe('dragService', function () {
                     dragService.tilePressed(0, 2);
                 });
 
-                it('should not recognize same place as drag', function() {
+                it('should not recognize same place as drag', function () {
                     dragService.tileEntered(0, 1);
                     dragService.tileEntered(0, 2);
                     dragService.mouseReleased();
@@ -234,7 +234,7 @@ describe('dragService', function () {
                     expectDraggedTo(0, 4);
                 });
 
-                it('should not allow to drag right outside grid', function() {
+                it('should not allow to drag right outside grid', function () {
                     dragService.tileEntered(0, 8);
                     dragService.mouseReleased();
                     expectNotDragged();
@@ -269,7 +269,7 @@ describe('dragService', function () {
                     dragService.tilePressed(0, 3);
                 });
 
-                it('should not recognize same place as drag', function() {
+                it('should not recognize same place as drag', function () {
                     dragService.tileEntered(0, 2);
                     dragService.tileEntered(0, 3);
                     dragService.mouseReleased();
@@ -312,7 +312,7 @@ describe('dragService', function () {
                     expectNotDragged();
                 });
 
-                describe('should avoid collision', function() {
+                describe('should avoid collision', function () {
                     it('with adjacent block', function () {
                         gridService.setBlock(block(0, 5, 2));
                         dragService.tileEntered(0, 4);
