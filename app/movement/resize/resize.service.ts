@@ -40,28 +40,28 @@
                 resizingRight = (tile == block.start + block.length - 1);
 
                 if (resizingLeft || resizingRight) {
-                    gridService.setBlockResized(row, block);
+                    gridService.setBlockResized(block);
                     markResizeStart(row, tile, block);
                 }
             } else {
                 resizingLeft = true;
                 resizingRight = true;
                 resizedBlock = {
-                    color: 'bafe24',
+                    color: '#bafe24',
                     row: row,
                     start: tile,
                     length: 1,
                     id: undefined
                 };
 
-                gridService.setBlockResized(row, resizedBlock);
+                gridService.setBlockResized(resizedBlock);
                 markResizeStart(row, tile, resizedBlock);
             }
         }
 
         function mouseReleased():void {
             if (resizedBlock !== undefined) {
-                gridService.setBlock(resizeRow, resizedBlock);
+                gridService.setBlock(resizedBlock);
                 if (creatingNewBlock()) {
                     // beware that this may happen if someone quickly modifies a newly created block
                     pubSubService.publish('block-created', resizedBlock);
@@ -75,28 +75,28 @@
         function resizeLeft(tile:number):void {
             let offset:number = tile - resizedBlock.start;
             if ((offset > 0) && (offset < resizedBlock.length)) {
-                gridService.clearBlock(resizeRow, resizedBlock);
+                gridService.clearBlock(resizedBlock);
                 resizedBlock.start = tile;
                 resizedBlock.length = resizedBlock.length - offset;
-                gridService.setBlockResized(resizeRow, resizedBlock);
+                gridService.setBlockResized(resizedBlock);
             } else if ((offset < 0) && canBeExpandedBySection(tile, resizedBlock.start - 1)) {
-                gridService.clearBlock(resizeRow, resizedBlock);
+                gridService.clearBlock(resizedBlock);
                 resizedBlock.start = tile;
                 resizedBlock.length = resizedBlock.length - offset;
-                gridService.setBlockResized(resizeRow, resizedBlock);
+                gridService.setBlockResized(resizedBlock);
             }
         }
 
         function resizeRight(tile:number):void {
             let offset:number = tile - (resizedBlock.start + resizedBlock.length - 1);
             if ((offset > 0) && canBeExpandedBySection(resizedBlock.start + resizedBlock.length, tile)) {
-                gridService.clearBlock(resizeRow, resizedBlock);
+                gridService.clearBlock(resizedBlock);
                 resizedBlock.length = resizedBlock.length + offset;
-                gridService.setBlockResized(resizeRow, resizedBlock);
+                gridService.setBlockResized(resizedBlock);
             } else if ((offset < 0) && (resizedBlock.length > 1)) {
-                gridService.clearBlock(resizeRow, resizedBlock);
+                gridService.clearBlock(resizedBlock);
                 resizedBlock.length = resizedBlock.length + offset;
-                gridService.setBlockResized(resizeRow, resizedBlock);
+                gridService.setBlockResized(resizedBlock);
             }
         }
 
@@ -133,4 +133,3 @@
         }
     }
 })();
-

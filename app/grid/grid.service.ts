@@ -31,51 +31,51 @@
             }
         }
 
-        function setBlockResized(row:number, block:Block):void {
+        function setBlockResized(block:Block):void {
             for (let i:number = block.start; i < block.start + block.length; i++) {
                 if (i === block.start) {
-                    data[row][i].first = true;
+                    data[block.row][i].first = true;
                 }
 
-                data[row][i].color = block.color;
-                data[row][i].block = block;
-                data[row][i].striped = true;
+                data[block.row][i].color = block.color;
+                data[block.row][i].block = block;
+                data[block.row][i].striped = true;
             }
 
-            data[row][block.start].striped = false;
-            data[row][block.start + block.length - 1].striped = false;
+            data[block.row][block.start].striped = false;
+            data[block.row][block.start + block.length - 1].striped = false;
         }
 
-        function setBlockDragged(row:number, block:Block):void {
+        function setBlockDragged(block:Block):void {
             for (let i:number = block.start; i < block.start + block.length; i++) {
                 if (i === block.start) {
-                    data[row][i].first = true;
+                    data[block.row][i].first = true;
                 }
 
-                data[row][i].color = block.color;
-                data[row][i].block = block;
-                data[row][i].striped = true;
-            }
-        }
-
-        function setBlock(row:number, block:Block):void {
-            for (let i:number = block.start; i < block.start + block.length; i++) {
-                if (i === block.start) {
-                    data[row][i].first = true;
-                }
-
-                data[row][i].color = block.color;
-                data[row][i].block = block;
-                data[row][i].striped = false;
+                data[block.row][i].color = block.color;
+                data[block.row][i].block = block;
+                data[block.row][i].striped = true;
             }
         }
 
-        function clearBlock(row:number, block:Block):void {
+        function setBlock(block:Block):void {
             for (let i:number = block.start; i < block.start + block.length; i++) {
-                data[row][i].color = '#fff';
-                data[row][i].block = undefined;
-                data[row][i].striped = false;
-                data[row][i].first = false;
+                if (i === block.start) {
+                    data[block.row][i].first = true;
+                }
+
+                data[block.row][i].color = block.color;
+                data[block.row][i].block = block;
+                data[block.row][i].striped = false;
+            }
+        }
+
+        function clearBlock(block:Block):void {
+            for (let i:number = block.start; i < block.start + block.length; i++) {
+                data[block.row][i].color = '#fff';
+                data[block.row][i].block = undefined;
+                data[block.row][i].striped = false;
+                data[block.row][i].first = false;
             }
         }
     }

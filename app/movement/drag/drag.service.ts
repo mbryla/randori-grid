@@ -19,24 +19,25 @@
 
         function tileEntered(row:number, tile:number):void {
             if ((draggedBlock !== undefined) && canBePlaced(row, tile + dragOffset)) {
-                gridService.clearBlock(dragRow, draggedBlock);
+                gridService.clearBlock(draggedBlock);
                 draggedBlock.start = tile + dragOffset;
+                draggedBlock.row = row;
                 dragRow = row;
-                gridService.setBlockDragged(dragRow, draggedBlock);
+                gridService.setBlockDragged(draggedBlock);
             }
         }
 
         function tilePressed(row:number, tile:number):void {
             let block:Block = gridService.data[row][tile].block;
             if (block !== undefined) {
-                gridService.setBlockDragged(row, block);
+                gridService.setBlockDragged(block);
                 markDragStart(row, tile, block);
             }
         }
 
         function mouseReleased():void {
             if (draggedBlock !== undefined) {
-                gridService.setBlock(dragRow, draggedBlock);
+                gridService.setBlock(draggedBlock);
                 if (blockMoved()) {
                     pubSubService.publish('block-modified', draggedBlock);
                 }
