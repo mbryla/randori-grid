@@ -20,7 +20,7 @@
         function tileEntered(tile:number):void {
             if ((resizedBlock !== undefined) && (resizingLeft || resizingRight)) {
                 if (resizingLeft && resizingRight) {
-                    // choose which side to resize
+                    // choose which side to resize // todo maybe we can skip this and resize both ways? 0.o
                     resizingLeft = tile < resizedBlock.start;
                     resizingRight = tile > resizedBlock.start;
                 }
@@ -93,7 +93,7 @@
                 gridService.clearBlock(resizedBlock);
                 resizedBlock.length = resizedBlock.length + offset;
                 gridService.setBlockResized(resizedBlock);
-            } else if ((offset < 0) && (resizedBlock.length > 1)) {
+            } else if ((offset < 0) && (resizedBlock.length > -offset)) {
                 gridService.clearBlock(resizedBlock);
                 resizedBlock.length = resizedBlock.length + offset;
                 gridService.setBlockResized(resizedBlock);
@@ -115,7 +115,7 @@
 
         function blockResized():boolean {
             return (resizingLeft && (resizedBlock.start != resizeStartTile)) ||
-                (resizingRight && ((resizedBlock.start + resizedBlock.length + 1) != resizeStartTile));
+                (resizingRight && ((resizedBlock.start + resizedBlock.length - 1) != resizeStartTile));
         }
 
         function markResizeStart(row:number, tile:number, block:Block):void {

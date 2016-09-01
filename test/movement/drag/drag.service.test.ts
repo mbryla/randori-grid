@@ -19,6 +19,8 @@ describe('dragService', function () {
         pubSubService.subscribe('block-modified', blockModifiedCallback);
     });
 
+    // todo should allow to overlap blocks!!!
+    
     it('should have a defined environment', function () {
         expect(dragService).toBeDefined();
         expect(gridService).toBeDefined();
@@ -37,7 +39,7 @@ describe('dragService', function () {
                     dragService.tilePressed(0, 2);
                 });
 
-                it('should not recognize same place as drag', function () {
+                it('should not recognize same tile as drag', function () {
                     dragService.tileEntered(1, 2);
                     dragService.tileEntered(0, 2);
                     dragService.mouseReleased();
@@ -116,7 +118,7 @@ describe('dragService', function () {
                     dragService.tilePressed(0, 3);
                 });
 
-                it('should not recognize same place as drag', function () {
+                it('should not recognize same tile as drag', function () {
                     dragService.tileEntered(1, 3);
                     dragService.tileEntered(0, 3);
                     dragService.mouseReleased();
@@ -203,7 +205,7 @@ describe('dragService', function () {
                     dragService.tilePressed(0, 2);
                 });
 
-                it('should not recognize same place as drag', function () {
+                it('should not recognize same tile as drag', function () {
                     dragService.tileEntered(0, 1);
                     dragService.tileEntered(0, 2);
                     dragService.mouseReleased();
@@ -269,7 +271,7 @@ describe('dragService', function () {
                     dragService.tilePressed(0, 3);
                 });
 
-                it('should not recognize same place as drag', function () {
+                it('should not recognize same tile as drag', function () {
                     dragService.tileEntered(0, 2);
                     dragService.tileEntered(0, 3);
                     dragService.mouseReleased();
