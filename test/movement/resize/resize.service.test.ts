@@ -1,9 +1,10 @@
-describe('dragService', function () {
+describe('resizeService', function () {
     var resizeService;
     var gridService;
     var pubSubService;
 
     var mockedBlockId = 0;
+    var blockCreatedCallback;
     var blockModifiedCallback;
 
     beforeEach(module('app'));
@@ -15,23 +16,41 @@ describe('dragService', function () {
         });
 
         gridService.initialize(3, 10);
+        blockCreatedCallback = jasmine.createSpy('block-created');
         blockModifiedCallback = jasmine.createSpy('block-modified');
+        pubSubService.subscribe('block-created', blockCreatedCallback);
         pubSubService.subscribe('block-modified', blockModifiedCallback);
     });
 
-    // todo should not allow to resize into blocks!!!
-    // todo should not allow to resize over blocks!!!
-    // todo shoould allow to create blocks
-        // todo but not into other blocks
-        // todo but not over blocks
-    
+    // todo should allow to create blocks
+    // todo but not into other blocks
+    // todo but not over blocks
+
     // todo with one it should not allow to change resize directions?
-    
+
     it('should have a defined environment', function () {
         expect(resizeService).toBeDefined();
         expect(gridService).toBeDefined();
         expect(pubSubService).toBeDefined();
         expect(blockModifiedCallback).toBeDefined();
+    });
+
+    describe('when creating new block in row 0', function () {
+        beforeEach(function () {
+            resizeService.tilePressedWithControl(0, 5);
+        });
+
+        describe('left', function () {
+            it('should allow to set length to 2', function () {
+                resizeService.tileEntered(4);
+                resizeService.mouseReleased();
+                expectCreatedAt(4, 2);
+            });
+        });
+
+        describe('right', function () {
+
+        });
     });
 
     describe('when resizing simple block in row 0', function () {
@@ -86,8 +105,29 @@ describe('dragService', function () {
                 expectResizedTo(4, 1);
             });
 
-            it('should not allow to decrease length below 0', function() {
+            it('should not allow to decrease length below 0', function () {
                 resizeService.tileEntered(5);
+                resizeService.mouseReleased();
+                expectNotResized();
+            });
+
+            it('should not allow to increase into adjacent block', function () {
+                gridService.setBlock(block(0, 2));
+                resizeService.tileEntered(1);
+                resizeService.mouseReleased();
+                expectNotResized();
+            });
+
+            it('should not allow to increase into another block 1 tile away', function () {
+                gridService.setBlock(block(0, 1));
+                resizeService.tileEntered(0);
+                resizeService.mouseReleased();
+                expectNotResized();
+            });
+
+            it('should not allow to increase over adjacent block', function () {
+                gridService.setBlock(block(1, 1));
+                resizeService.tileEntered(0);
                 resizeService.mouseReleased();
                 expectNotResized();
             });
@@ -123,13 +163,40 @@ describe('dragService', function () {
                 expectResizedTo(2, 1);
             });
 
-            it('should not allow to decrease length below 0', function() {
+            it('should not allow to decrease length below 0', function () {
                 resizeService.tileEntered(1);
+                resizeService.mouseReleased();
+                expectNotResized();
+            });
+
+            it('should not allowed to increase into adjacent block', function () {
+                gridService.setBlock(block(5, 2));
+                resizeService.tileEntered(5);
+                resizeService.mouseReleased();
+                expectNotResized();
+            });
+
+            it('should not allow to increase into another block 1 tile away', function () {
+                gridService.setBlock(block(6, 1));
+                resizeService.tileEntered(6);
+                resizeService.mouseReleased();
+                expectNotResized();
+            });
+
+            it('should not allow to increase over adjacent block', function () {
+                gridService.setBlock(block(5, 1));
+                resizeService.tileEntered(6);
                 resizeService.mouseReleased();
                 expectNotResized();
             });
         });
     });
+
+    function expectCreatedAt(start, length) {
+        expect(blockCreatedCallback.calls.count()).toEqual(1);
+        expect(blockCreatedCallback.calls.mostRecent().args[0].start).toBe(start);
+        expect(blockCreatedCallback.calls.mostRecent().args[0].length).toBe(length);
+    }
 
     function expectResizedTo(start, length) {
         expect(blockModifiedCallback.calls.count()).toEqual(1);
@@ -140,6 +207,7 @@ describe('dragService', function () {
     function expectNotResized() {
         expect(blockModifiedCallback.calls.count()).toEqual(0);
     }
+
 
     function block(start, length) {
         return {
