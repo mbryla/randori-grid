@@ -22,12 +22,6 @@ describe('resizeService', function () {
         pubSubService.subscribe('block-modified', blockModifiedCallback);
     });
 
-    // todo should allow to create blocks
-    // todo but not into other blocks
-    // todo but not over blocks
-
-    // todo with one it should not allow to change resize directions?
-
     it('should have a defined environment', function () {
         expect(resizeService).toBeDefined();
         expect(gridService).toBeDefined();
@@ -40,16 +34,93 @@ describe('resizeService', function () {
             resizeService.tilePressedWithControl(0, 5);
         });
 
+        it('should allow to set length to 1', function () {
+            resizeService.mouseReleased();
+            expectCreatedAt(5, 1);
+        });
+
         describe('left', function () {
             it('should allow to set length to 2', function () {
                 resizeService.tileEntered(4);
                 resizeService.mouseReleased();
                 expectCreatedAt(4, 2);
             });
+
+            it('should allow to set length to 3', function () {
+                resizeService.tileEntered(3);
+                resizeService.mouseReleased();
+                expectCreatedAt(3, 3);
+            });
+
+            it('should not allow to change direction', function () {
+                resizeService.tileEntered(4);
+                resizeService.tileEntered(6);
+                resizeService.mouseReleased();
+                expectCreatedAt(4, 2);
+            });
+
+            it('should not allow to overlap adjacent block', function () {
+                gridService.setBlock(block(3, 2));
+                resizeService.tileEntered(4);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 1);
+            });
+
+            it('should not allow to overlap block 1 tile away', function () {
+                gridService.setBlock(block(2, 2));
+                resizeService.tileEntered(3);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 1);
+            });
+
+            it('should not allow to surround block', function () {
+                gridService.setBlock(block(3, 2));
+                resizeService.tileEntered(2);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 1);
+            });
         });
 
         describe('right', function () {
+            it('should allow to set length to 2', function () {
+                resizeService.tileEntered(6);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 2);
+            });
 
+            it('should allow to set length to 3', function () {
+                resizeService.tileEntered(7);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 3);
+            });
+
+            it('should not allow to change direction', function () {
+                resizeService.tileEntered(6);
+                resizeService.tileEntered(4);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 2);
+            });
+
+            it('should not allow to overlap adjacent block', function () {
+                gridService.setBlock(block(6, 2));
+                resizeService.tileEntered(6);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 1);
+            });
+
+            it('should not allow to overlap block 1 tile away', function () {
+                gridService.setBlock(block(7, 2));
+                resizeService.tileEntered(7);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 1);
+            });
+
+            it('should not allow to surround block', function () {
+                gridService.setBlock(block(6, 2));
+                resizeService.tileEntered(8);
+                resizeService.mouseReleased();
+                expectCreatedAt(5, 1);
+            });
         });
     });
 
@@ -207,7 +278,6 @@ describe('resizeService', function () {
     function expectNotResized() {
         expect(blockModifiedCallback.calls.count()).toEqual(0);
     }
-
 
     function block(start, length) {
         return {

@@ -10,6 +10,9 @@ node_modules
 **/*.js.map
 typings
 
+# Karma
+!karma.conf.js
+
 # Sass
 **/*.css
 **/*.css.map

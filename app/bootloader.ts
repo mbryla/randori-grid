@@ -3,13 +3,16 @@
 
     bootloader.$inject = ['$rootScope', 'pubSubService', 'gridService'];
     function bootloader($rootScope, pubSubService, gridService):Object {
+        $rootScope.debug = false;
+
         var run = function ():void {
             let block1:Block = {
                 color: 'red',
                 row: 1,
                 start: 2,
                 length: 3,
-                id: 1
+                id: 1,
+                tag: 'Block #1'
             };
 
             let block2:Block = {
@@ -17,7 +20,8 @@
                 row: 1,
                 start: 5,
                 length: 8,
-                id: 2
+                id: 2,
+                tag: 'Block #2'
             };
 
             gridService.initialize(3, 24);

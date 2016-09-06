@@ -3,12 +3,14 @@ interface Block {
     row:number,
     start:number,
     length:number,
-    color:string
+    color:string,
+    tag: string
 }
 
 interface Tile {
     block:Block,
     first:boolean,
     color:string,
-    striped:boolean
+    striped:boolean,
+    tag: string
 }

@@ -1,8 +1,10 @@
 <div class="row">
     <div ng-repeat="tile in rowController.data" ondragstart="return false;" class="tile"
          ng-class="{block: tile.block, first: tile.first, striped: tile.striped}"
-         ng-style="{backgroundColor: tile.color}"
+         ng-style="{backgroundColor: tile.color, 'z-index': (rowController.data.length - $index)}"
          ng-mouseenter="rowController.tileEntered($index)"
          ng-mousedown="rowController.tilePressed($index, $event)">
+        {{ $root.debug ? $index : '' }}
+        {{ tile.first ? tile.tag : ''}}
     </div>
 </div>

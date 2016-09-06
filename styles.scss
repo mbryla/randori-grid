@@ -1,6 +1,13 @@
 $sqrt2: 1.414213562373095;
 $tileSize: 50px;
 
+@mixin user-select-none {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .row {
   margin: 10px;
 }
@@ -13,6 +20,15 @@ $tileSize: 50px;
 
   border: 1px solid black;
   border-right: 0;
+
+  @include user-select-none();
+  vertical-align: top;
+
+  text-align: left;
+  position: relative;
+  white-space: nowrap;
+
+  padding: 3px; // todo apply font design
 
   &:last-child {
     border-right: 1px solid black;

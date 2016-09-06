@@ -22,6 +22,7 @@
 
                 for (let j:number = 0; j < width; j++) {
                     data[i][j] = {
+                        tag: undefined,
                         block: undefined,
                         first: false,
                         color: '#fff',
@@ -37,6 +38,7 @@
                     data[block.row][i].first = true;
                 }
 
+                data[block.row][i].tag = block.tag;
                 data[block.row][i].color = block.color;
                 data[block.row][i].block = block;
                 data[block.row][i].striped = true;
@@ -52,6 +54,7 @@
                     data[block.row][i].first = true;
                 }
 
+                data[block.row][i].tag = block.tag;
                 data[block.row][i].color = block.color;
                 data[block.row][i].block = block;
                 data[block.row][i].striped = true;
@@ -64,6 +67,7 @@
                     data[block.row][i].first = true;
                 }
 
+                data[block.row][i].tag = block.tag;
                 data[block.row][i].color = block.color;
                 data[block.row][i].block = block;
                 data[block.row][i].striped = false;
@@ -72,6 +76,7 @@
 
         function clearBlock(block:Block):void {
             for (let i:number = block.start; i < block.start + block.length; i++) {
+                data[block.row][i].tag = undefined;
                 data[block.row][i].color = '#fff';
                 data[block.row][i].block = undefined;
                 data[block.row][i].striped = false;
